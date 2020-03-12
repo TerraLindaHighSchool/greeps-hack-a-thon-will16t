@@ -1,5 +1,4 @@
 import greenfoot.*;
-
 /**
  * A Greep is an alien creature that likes to collect tomatoes.
  * 
@@ -33,21 +32,34 @@ public class Greep extends Creature
     public void act()
     {
         super.act();   // do not delete! leave as first statement in act().
-        if (carryingTomato()) {
-            if (atShip()) {
+        if (atWater() || atWorldEdge())
+        {
+            turn(90);
+        }          
+        if (carryingTomato())
+        {
+            if (atShip())
+            {
                 dropTomato();
             }
-            else {
+            if (!atWater())
+            {
                 turnHome();
                 move();
             }
-        }
-        else {
+            if (atWater())
+            {
+                turn(5);
+                move();
+            }            
+        }    
+        else 
+        {
             move();
             checkFood();
         }
-    }
     
+    }
     /**
      * Is there any food here where we are? If so, try to load some!
      */
@@ -61,7 +73,7 @@ public class Greep extends Creature
             // do anything if we are alone here.
         }
     }
-
+    
     /**
      * This method specifies the name of the author (for display on the result board).
      */
@@ -69,7 +81,6 @@ public class Greep extends Creature
     {
         return "Anonymous";  // write your name here!
     }
-
     /**
      * This method specifies the image we want displayed at any time. (No need 
      * to change this for the competition.)
